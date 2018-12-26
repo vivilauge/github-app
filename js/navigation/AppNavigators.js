@@ -28,7 +28,7 @@ const MainNavigator = createStackNavigator({
     DetailPage: {
         screen: DetailPage,
         navigationOptions: {
-            // header: null
+            // header: null // 不为空， 显示出返回
         }
     }
 });

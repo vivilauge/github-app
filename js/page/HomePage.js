@@ -11,8 +11,7 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import NavigationUtil from '../navigation/NavigationUtil';
 import DynamicNavigator from '../navigation/DynamicNavigator';
 
-type Props = {};
-export default class Home extends Component<Props> {
+export default class Home extends Component {
 
   render() {
     NavigationUtil.navigation = this.props.navigation;

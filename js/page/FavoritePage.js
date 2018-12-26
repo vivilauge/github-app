@@ -1,12 +1,23 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
-type Props = {};
-export default class Favorite extends Component<Props> {
+export default class Favorite extends Component {
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Favorite to React Native!</Text>
+        <Button
+          title='change theme color'
+          onPress={() => {
+            navigation.setParams({
+              theme: {
+                tintColor: 'yellow',
+                updateTime: new Date().getTime()
+              }
+            })
+          }}
+        />
       </View>
     );
   }

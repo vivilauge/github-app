@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import NavigationUtil from '../navigation/NavigationUtil';
-type Props = {};
-export default class App extends Component<Props> {
+
+export default class App extends Component {
   componentDidMount() {
     this.timer = setTimeout(() => {
       NavigationUtil.resetToHomePage({

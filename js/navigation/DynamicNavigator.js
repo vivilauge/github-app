@@ -11,8 +11,6 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import NavigationUtil from './NavigationUtil';
 
-type Props = {};
-
 const TABS = { // 在这里配置路由页面
   PopularPage: {
     screen: PopularPage,
@@ -68,7 +66,7 @@ const TABS = { // 在这里配置路由页面
   },
 }
 
-export default class DynamicNavigator extends Component<Props> {
+export default class DynamicNavigator extends Component {
   constructor(props) {
     super(props);
     console.disableYellowBox = true;

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-type Props = {};
-export default class Trending extends Component<Props> {
+export default class Trending extends Component {
   render() {
     const { navigation } = this.props;
     return (
