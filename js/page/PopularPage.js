@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createMaterialTopTabNavigator } from 'react-navigation';
+import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import { StyleSheet, Text, View } from 'react-native';
 import NavigationUtil from '../navigation/NavigationUtil';
 
@@ -23,7 +23,7 @@ export default class PopularPage extends Component {
   }
 
   render() {
-    const TabNavigator = createMaterialTopTabNavigator(
+    const TabNavigator = createAppContainer(createMaterialTopTabNavigator(
       this._genTabs(), {
         tabBarOptions: { // 设置tabs样式
           tabStyle: styles.tabStyle,
@@ -35,7 +35,7 @@ export default class PopularPage extends Component {
           indicatorStyle: styles.indicatorStyle, // 滑动标签指示器样式
           labelStyle: styles.labelStyle, //文字的样式
         }
-      });
+      }));
     return <View style={{ flex: 1, marginTop: 30 }}><TabNavigator /></View>
   }
 }

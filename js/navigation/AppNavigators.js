@@ -1,9 +1,4 @@
-import {
-    createStackNavigator,
-    createMaterialTopTabNavigator,
-    createBottomTabNavigator,
-    createSwitchNavigator
-} from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
 import WelcomePage from '../page/WelcomePage';
 import HomePage from '../page/HomePage';
 import DetailPage from '../page/DetailPage';
@@ -33,11 +28,11 @@ const MainNavigator = createStackNavigator({
     }
 });
 
-export default createSwitchNavigator({ // 链接两个navigator
+export default createAppContainer(createSwitchNavigator({ // 链接两个navigator
     Init: InitNavigator,
     Main: MainNavigator,
 }, {
-    navigationOptions: { // 不希望有navigation bar
+    defaultNavigationOptions: { // 不希望有navigation bar
         header: null
     }
-})
+}))

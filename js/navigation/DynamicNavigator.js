@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { BottomTabBar } from 'react-navigation-tabs';
 import { StyleSheet } from 'react-native';
 import PopularPage from '../page/PopularPage';
@@ -75,12 +75,11 @@ export default class DynamicNavigator extends Component {
     const { PopularPage, TrendingPage, MyPage, FavoritePage } = TABS;
     const tabs = { PopularPage, TrendingPage, MyPage, FavoritePage };
     // PopularPage.navigationOptions.tabBarLabel = '最新'  // 动态修改参数
-    return createBottomTabNavigator(tabs, {
+    return createAppContainer(createBottomTabNavigator(tabs, {
       tabBarComponent: TabBarComponent
-    })
+    }))
   }
   render() {
-    NavigationUtil.navigation = this.props.navigation;
     const Tab = this._tabNavigator();
     return <Tab />
   }
