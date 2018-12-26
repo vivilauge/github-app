@@ -1,12 +1,39 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View} from 'react-native';
-
+import React, { Component } from 'react';
+import { createMaterialTopTabNavigator } from 'react-navigation';
+import { StyleSheet, Text, View } from 'react-native';
+import NavigationUtil from '../navigation/NavigationUtil';
 type Props = {};
-export default class Popular extends Component<Props> {
+export default class PopularPage extends Component<Props> {
   render() {
+    const TabNavigator = createMaterialTopTabNavigator({
+      PopularTab1: {
+        screen: PopularTab,
+        navigationOptions: {
+          title: 'Tab1'
+        }
+      },
+      PopularTab2: {
+        screen: PopularTab,
+        navigationOptions: {
+          title: 'Tab2'
+        }
+      }
+    });
+    return <View style={{flex: 1, marginTop: 30 }}><TabNavigator /></View>
+  }
+}
+
+class PopularTab extends Component<Props> {
+  render() {
+    const { tabLabel } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Popular to React Native!</Text>
+        <Text style={styles.welcome}>{tabLabel}</Text>
+        <Text onPress={()=>{
+          NavigationUtil.goPage({
+            navigation: this.props.navigation
+          }, 'DetailPage')
+        }}>go detail</Text>
       </View>
     );
   }
