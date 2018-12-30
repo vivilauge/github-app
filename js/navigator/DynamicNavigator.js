@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { BottomTabBar } from 'react-navigation-tabs';
-import { StyleSheet } from 'react-native';
 import PopularPage from '../page/PopularPage';
 import TrendingPage from '../page/TrendingPage';
 import MyPage from '../page/MyPage';
@@ -9,6 +8,7 @@ import FavoritePage from '../page/FavoritePage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import { connect } from 'react-redux';
 
 const TABS = { // 在这里配置路由页面
   PopularPage: {
@@ -65,7 +65,7 @@ const TABS = { // 在这里配置路由页面
   },
 }
 
-export default class DynamicNavigator extends Component {
+class DynamicTabNavigator extends Component {
   constructor(props) {
     super(props);
     console.disableYellowBox = true;
@@ -75,7 +75,9 @@ export default class DynamicNavigator extends Component {
     const tabs = { PopularPage, TrendingPage, MyPage, FavoritePage };
     // PopularPage.navigationOptions.tabBarLabel = '最新'  // 动态修改参数
     return createAppContainer(createBottomTabNavigator(tabs, {
-      tabBarComponent: TabBarComponent
+      tabBarComponent: props => {
+        return <TabBarComponent theme={this.props.theme} {...props} />
+      }
     }))
   }
   render() {
@@ -94,34 +96,15 @@ class TabBarComponent extends Component {
   }
 
   render() {
-    const { routes, index } = this.props.navigation.state; // 取出定义的数据
-    const routesIndex = routes[index]; // 定义当前的navigation
-
-    if (routesIndex.params) {
-      const { theme } = routesIndex.params;
-      // 以最新的时间为主， 防止被其他tab之前的修改覆盖掉
-      if (theme && theme.updateTime > this.theme.updateTime) {
-        this.theme = theme;
-      }
-    };
-
     return <BottomTabBar
       {...this.props}
-      activeTintColor={this.theme.tintColor || this.props.activeTintColor}
+      activeTintColor={this.props.theme}
     />
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  }
+const mapStateToProps = state => ({
+  theme: state.theme.theme,
 });
+
+export default connect(mapStateToProps)(DynamicTabNavigator);
