@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
-import actions from '../action/index'
+import actions from '../action/index';
 
-class Trending extends Component {
+class TrendingPage extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -33,12 +33,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  
-});
+const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   onThemeChange: theme => dispatch(actions.onThemeChange(theme))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Trending);
+export default connect(mapStateToProps, mapDispatchToProps)(TrendingPage);
