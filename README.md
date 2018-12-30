@@ -29,3 +29,5 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
    1. yarn add react-navigation-redux-helpers
    2. yarn add redux
    3. yarn add react-redux
+
+2. 4-2 Redux与react-navigation场景处理android物理返回键

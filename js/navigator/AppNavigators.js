@@ -36,7 +36,7 @@ export const RootNavigator = createAppContainer(createSwitchNavigator({
     Init: InitNavigator,
     Main: MainNavigator,
 }, {
-    navigationOptions: {
+    defaultNavigationOptions: {
         header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
     }
 }));
