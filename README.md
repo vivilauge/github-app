@@ -3,8 +3,9 @@
 #### 介绍
 github app 
 
-react-native link react-native-vector-icons
-react-native link react-native-gesture-handler
+npm install 之后需要依赖的原生插件
+1. react-native link react-native-vector-icons
+2. react-native link react-native-gesture-handler
 
 #### Navigation
 
@@ -22,3 +23,11 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 
 2. 项目根目录 -> TARGETS 找到 linked Frameworks and Libraries标题
 找到文件libRNGestureHandler.a 删除 再搜索get... 添加。 clean重新编译
+
+#### Redux
+1. 4-1 基于Redux与react-navigation的项目框架搭建-1
+
+    yarn add react-navigation-redux-helpers
+    yarn add redux
+    yarn add react-redux
+    yarn add redux-devtools
