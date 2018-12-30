@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import NavigationUtil from '../navigation/NavigationUtil';
+import NavigationUtil from '../navigator/NavigationUtil';
 
 export default class App extends Component {
   componentDidMount() {

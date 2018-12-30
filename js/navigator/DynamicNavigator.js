@@ -9,7 +9,6 @@ import FavoritePage from '../page/FavoritePage';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import NavigationUtil from './NavigationUtil';
 
 const TABS = { // 在这里配置路由页面
   PopularPage: {
