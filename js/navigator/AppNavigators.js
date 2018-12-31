@@ -3,8 +3,9 @@ import WelcomePage from '../page/WelcomePage';
 import HomePage from '../page/HomePage';
 import DetailPage from '../page/DetailPage';
 import FetchPage from '../page/FetchPage';
-import {connect} from 'react-redux';
-import {createReactNavigationReduxMiddleware, reduxifyNavigator} from 'react-navigation-redux-helpers';
+import AsyncStorePage from '../page/AsyncStorePage';
+import { connect } from 'react-redux';
+import { createReactNavigationReduxMiddleware, reduxifyNavigator } from 'react-navigation-redux-helpers';
 
 export const rootCom = 'Init'; // route init
 
@@ -30,6 +31,9 @@ const MainNavigator = createStackNavigator({
     },
     FetchPage: {
         screen: FetchPage,
+    },
+    AsyncStorePage: {
+        screen: AsyncStorePage,
     }
 });
 
@@ -37,10 +41,10 @@ export const RootNavigator = createAppContainer(createSwitchNavigator({
     Init: InitNavigator,
     Main: MainNavigator,
 }, {
-    defaultNavigationOptions: {
-        header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
-    }
-}));
+        defaultNavigationOptions: {
+            header: null,// 可以通过将header设为null 来禁用StackNavigator的Navigation Bar
+        }
+    }));
 
 /**
  * 1.初始化react-navigation与redux的中间件，
