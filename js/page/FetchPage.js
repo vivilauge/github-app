@@ -14,10 +14,16 @@ export default class FetchPage extends Component {
         let url = `https://api.github.com/search/repositories?q=${this.searchKey}`;
         fetch(url).then(response => {
             if (response.ok) {
+                console.log('====================================');
+                console.log(response);
+                console.log('====================================');
                 return response.text();
             }
             throw new Error('Network response was not ok.');
         }).then(responseText => {
+            console.log('====================================');
+                console.log(responseText);
+                console.log('====================================');
             this.setState({
                 showText: responseText
             })
