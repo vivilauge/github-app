@@ -2,6 +2,7 @@ import { createStackNavigator, createSwitchNavigator, createAppContainer } from 
 import WelcomePage from '../page/WelcomePage';
 import HomePage from '../page/HomePage';
 import DetailPage from '../page/DetailPage';
+import FetchPage from '../page/FetchPage';
 import {connect} from 'react-redux';
 import {createReactNavigationReduxMiddleware, reduxifyNavigator} from 'react-navigation-redux-helpers';
 
@@ -26,9 +27,9 @@ const MainNavigator = createStackNavigator({
     },
     DetailPage: {
         screen: DetailPage,
-        navigationOptions: {
-            // header: null // 不为空， 显示出返回
-        }
+    },
+    FetchPage: {
+        screen: FetchPage,
     }
 });
 

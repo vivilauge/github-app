@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import NavigationUtil from '../navigator/NavigationUtil';
+import FetchPage from './FetchPage';
 
 export default class PopularPage extends Component {
   constructor(props) {
@@ -51,6 +52,13 @@ class PopularTab extends Component {
             navigation: this.props.navigation
           }, 'DetailPage')
         }}>go detail</Text>
+        <Button 
+          title='go to fetch'
+          onPress={() => {
+          NavigationUtil.goPage({
+            navigation: this.props.navigation
+          }, 'FetchPage')
+        }}/>
       </View>
     );
   }

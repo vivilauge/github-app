@@ -31,3 +31,6 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
    3. yarn add react-redux
 
 2. 4-2 Redux与react-navigation场景处理android物理返回键
+
+#### 网络编程与数据存储技术
+1. 5-1 RN网络编程之Fetch实操-1
