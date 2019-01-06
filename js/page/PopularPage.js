@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import { StyleSheet, Text, View, RefreshControl, FlatList } from 'react-native';
+import PopularItem from '../common/PopularItem';
 import { connect } from 'react-redux';
 import action from '../action';
 
@@ -68,9 +69,9 @@ class PopularTab extends Component {
 
   renderItem(data) {
     const item = data.item;
-    return <View style={{ marginBottom: 10 }}>
-      <Text style={{ backgroundColor: '#ccc' }}>{JSON.stringify(item)}</Text>
-    </View>
+    return <PopularItem item={item} onSelect={() => {
+
+    }} />
   }
 
   render() {
@@ -117,9 +118,6 @@ const PopularTabPage = connect(mapStateToProps, mapDispatchToProps)(PopularTab);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   tabStyle: {
     minWidth: 50,

@@ -39,3 +39,4 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 
 #### 最热模块开发
 1. 6-1 基于Redux+FlatList实现列表页数据加载 && 列表实现&数据渲染
+2. 6-2 自定义组件实现列表Item
