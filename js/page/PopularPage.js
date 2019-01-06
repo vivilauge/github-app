@@ -66,6 +66,13 @@ class PopularTab extends Component {
             navigation: this.props.navigation
           }, 'AsyncStorePage')
         }}/>
+        <Button 
+          title='go to DataStrogePage'
+          onPress={() => {
+          NavigationUtil.goPage({
+            navigation: this.props.navigation
+          }, 'DataStrogePage')
+        }}/>
       </View>
     );
   }
