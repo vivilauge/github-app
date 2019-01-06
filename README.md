@@ -36,3 +36,6 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 1. 5-1 RN网络编程之Fetch实操
 2. 5-2 RN数据库编程之AsyncStorage
 3. 5-3 RN离线缓存框架设计实操
+
+#### 最热模块开发
+1. 6-1 基于Redux+FlatList实现列表页数据加载 && 列表实现&数据渲染
