@@ -13,11 +13,10 @@ const URL = 'https://github.com/trending/';
 import TrendingDialog, { TimeSpans } from '../common/TrendingDialog'
 
 const THEME_COLOR = '#678';
-type Props = {};
-export default class TrendingPage extends Component<Props> {
+
+export default class TrendingPage extends Component {
   constructor(props) {
     super(props);
-    console.log(NavigationUtil.navigation);
     this.tabNames = ['All', 'C', 'C#', 'PHP', 'JavaScript'];
     this.state = {
       timeSpan: TimeSpans[0],
@@ -113,7 +112,7 @@ export default class TrendingPage extends Component<Props> {
   }
 }
 const pageSize = 10;//设为常量，防止修改
-class TrendingTab extends Component<Props> {
+class TrendingTab extends Component {
   constructor(props) {
     super(props);
     const { tabLabel, timeSpan } = this.props;
@@ -171,10 +170,10 @@ class TrendingTab extends Component<Props> {
 
   renderItem(data) {
     const item = data.item;
-    return <TrendingItem
-      item={item}
-      onSelect={() => {
-
+    return <TrendingItem item={item} onSelect={() => {
+        NavigationUtil.goPage({
+          projectModel: item
+        }, 'DetailPage')
       }}
     />
   }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import Toast from 'react-native-easy-toast'
+import NavigationUtil from '../navigator/NavigationUtil'
 import { StyleSheet, Text, View, RefreshControl, FlatList, ActivityIndicator, DeviceInfo} from 'react-native';
 import PopularItem from '../common/PopularItem';
 import NavigationBar from '../common/NavigationBar';
@@ -125,7 +126,11 @@ class PopularTab extends Component {
   renderItem(data) {
     const item = data.item;
     return <PopularItem item={item} onSelect={() => {
-
+      console.log(item);
+      
+      NavigationUtil.goPage({
+        projectModel: item
+      }, 'DetailPage')
     }} />
   }
 
