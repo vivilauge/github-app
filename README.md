@@ -44,3 +44,4 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 
 #### 趋势模块开发
 1. 7-1 如何自定义React Native组件 && 实现自定义组件NavigationBar
+2. 7-2 趋势页面开发

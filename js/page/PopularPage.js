@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigation';
 import Toast from 'react-native-easy-toast'
-import { StyleSheet, Text, View, RefreshControl, FlatList, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, RefreshControl, FlatList, ActivityIndicator, DeviceInfo} from 'react-native';
 import PopularItem from '../common/PopularItem';
 import NavigationBar from '../common/NavigationBar';
 import { connect } from 'react-redux';
@@ -48,15 +48,16 @@ export default class PopularPage extends Component {
         tabBarOptions: { // 设置tabs样式
           tabStyle: styles.tabStyle,
           upperCaseLabel: false, // 标签设置小写
-          scrollEnabled: true, // 支持选项卡滚动
+          scrollEnabled: true, // 是否支持 选项卡滚动，默认false
           style: {
-            backgroundColor: '#678' // tabs背景色
+            backgroundColor: '#678', // tabs背景色
+            height: 30//fix 开启scrollEnabled后再Android上初次加载时闪烁问题
           },
           indicatorStyle: styles.indicatorStyle, // 滑动标签指示器样式
           labelStyle: styles.labelStyle, //文字的样式
         }
       }));
-    return <View style={{ flex: 1, marginTop: 30 }}>
+    return <View style={{ flex: 1, marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0 }}>
       {navigationBar}
       <TabNavigator />
     </View>
@@ -100,7 +101,7 @@ class PopularTab extends Component {
       store = {
         items: [],
         isLoading: false,
-        projectModels: [],//要显示的数据
+        projectModes: [],//要显示的数据
         hideLoadingMore: true,//默认隐藏加载更多
       }
     }
@@ -133,7 +134,7 @@ class PopularTab extends Component {
     return (
       <View style={styles.container}>
         <FlatList
-          data={store.projectModels}
+          data={store.projectModes}
           renderItem={data => this.renderItem(data)}
           keyExtractor={item => '' + item.id}
           refreshControl={
@@ -184,7 +185,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   tabStyle: {
-    minWidth: 50,
+    // minWidth: 50 //fix minWidth会导致tabStyle初次加载时闪烁
+    padding: 0
   },
   indicatorStyle: {
     height: 2,
@@ -192,8 +194,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     fontSize: 13,
-    marginTop: 6,
-    marginBottom: 6
+    margin: 0,
   },
   indicatorContainer: {
     alignItems: "center"

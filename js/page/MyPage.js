@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity, DeviceInfo } from 'react-native';
 import { connect } from 'react-redux';
 import NavigationBar from '../common/NavigationBar';
 import actions from '../action/index';
@@ -97,7 +97,7 @@ class MyPage extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 30
+    marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0
   },
 });
 
