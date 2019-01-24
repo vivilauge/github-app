@@ -3,12 +3,13 @@ import { createMaterialTopTabNavigator, createAppContainer } from 'react-navigat
 import Toast from 'react-native-easy-toast'
 import { StyleSheet, Text, View, RefreshControl, FlatList, ActivityIndicator } from 'react-native';
 import PopularItem from '../common/PopularItem';
+import NavigationBar from '../common/NavigationBar';
 import { connect } from 'react-redux';
 import actions from '../action';
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
-const THEME_COLOR = 'red';
+const THEME_COLOR = '#678';
 const pageSize = 10;//设为常量，防止修改
 
 export default class PopularPage extends Component {
@@ -31,6 +32,17 @@ export default class PopularPage extends Component {
   }
 
   render() {
+    let statusBar = {
+      backgroundColor: THEME_COLOR,
+      barStyle: 'light-content'
+    }
+    let navigationBar = <NavigationBar
+      title={'最热'}
+      statusBar={statusBar}
+      style={{
+        backgroundColor: THEME_COLOR
+      }}
+    />;
     const TabNavigator = createAppContainer(createMaterialTopTabNavigator(
       this._genTabs(), {
         tabBarOptions: { // 设置tabs样式
@@ -44,7 +56,10 @@ export default class PopularPage extends Component {
           labelStyle: styles.labelStyle, //文字的样式
         }
       }));
-    return <View style={{ flex: 1, marginTop: 30 }}><TabNavigator /></View>
+    return <View style={{ flex: 1, marginTop: 30 }}>
+      {navigationBar}
+      <TabNavigator />
+    </View>
   }
 }
 

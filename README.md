@@ -41,3 +41,6 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 1. 6-1 基于Redux+FlatList实现列表页数据加载 && 列表实现&数据渲染
 2. 6-2 自定义组件实现列表Item
 3. 6-3 FlatList的高级应用&上拉加载更多功能实现
+
+#### 趋势模块开发
+1. 7-1 如何自定义React Native组件 && 实现自定义组件NavigationBar
