@@ -9,6 +9,8 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { connect } from 'react-redux';
+import EventTypes from '../util/EventTypes';
+import EventBus from 'react-native-event-bus'
 
 const TABS = { // 在这里配置路由页面
   PopularPage: {
@@ -83,7 +85,14 @@ class DynamicTabNavigator extends Component {
   }
   render() {
     const Tab = this._tabNavigator();
-    return <Tab />
+    return <Tab 
+      onNavigationStateChange={(prevState, newState, action) => {
+        EventBus.getInstance().fireEvent(EventTypes.bottom_tab_select, {//发送底部tab切换的事件
+          from: prevState.index,
+          to: newState.index
+        })
+      }}
+    />
   }
 }
 
