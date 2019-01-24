@@ -46,3 +46,4 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 1. 7-1 如何自定义React Native组件 && 实现自定义组件NavigationBar
 2. 7-2 趋势页面开发
 3. 7-3 如何实现React Native自定义弹框(Modal组件的使用) && 趋势菜单功能开发
+4. 7-4 详情页面开发（WebView、代码封装与复用提取、模块化)
