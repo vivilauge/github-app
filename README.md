@@ -56,3 +56,4 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 1. 9-1 实现我的列表页
 2. 9-2 实现简单浏览器
 3. 9-3 组装者模式实现关于页面
+4. 9-4 实现关于作者页面与Linking、Clipboard的使用
