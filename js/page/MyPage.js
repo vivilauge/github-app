@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { onThemeChange } from '../action/theme'
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import NavigationBar from '../common/NavigationBar';
+import NavigationUtil from "../navigator/NavigationUtil";
 import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { MORE_MENU } from "../common/MORE_MENU";
@@ -42,6 +43,20 @@ class MyPage extends Component {
   }
 
   onClick(menu) {
+    console.log(menu);
+    let RouteName, params = {};
+    switch (menu) {
+      case MORE_MENU.Tutorial:
+        RouteName = 'WebViewPage';
+        params.title = '教程';
+        params.url = 'https://ry008.com';
+        break
+    }
+    
+    
+    if (RouteName) {
+      NavigationUtil.goPage(params, RouteName);
+    }
 
   }
 
