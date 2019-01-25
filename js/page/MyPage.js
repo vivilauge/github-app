@@ -4,55 +4,27 @@ import { onThemeChange } from '../action/theme'
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import NavigationBar from '../common/NavigationBar';
 import NavigationUtil from "../navigator/NavigationUtil";
-import Feather from 'react-native-vector-icons/Feather'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { MORE_MENU } from "../common/MORE_MENU";
-import GlobalStyles from "../res/GlobalStyles";
+import GlobalStyles from "../res/styles/GlobalStyles";
 import ViewUtil from "../util/ViewUtil";
 
 const THEME_COLOR = '#678';
 
 class MyPage extends Component {
-  getRightButton() {
-    return <View style={{ flexDirection: 'row' }}>
-      <TouchableOpacity
-        onPress={() => {
-        }}
-      >
-        <View style={{ padding: 5, marginRight: 8 }}>
-          <Feather
-            name={'search'}
-            size={24}
-            style={{ color: 'white' }}
-          />
-        </View>
-
-      </TouchableOpacity>
-    </View>
-  }
-
-  getLeftButton(callBack) {
-    return <TouchableOpacity
-      style={{ padding: 8, paddingLeft: 12 }}
-      onPress={callBack}>
-      <Ionicons
-        name={'ios-arrow-back'}
-        size={26}
-        style={{ color: 'white' }} />
-    </TouchableOpacity>
-  }
-
   onClick(menu) {
-    console.log(menu);
     let RouteName, params = {};
+    console.log(menu);
     switch (menu) {
       case MORE_MENU.Tutorial:
         RouteName = 'WebViewPage';
         params.title = '教程';
         params.url = 'https://ry008.com';
         break
+      case MORE_MENU.About:
+        RouteName = 'AboutPage';
+        break
     }
-    
     
     if (RouteName) {
       NavigationUtil.goPage(params, RouteName);
@@ -74,8 +46,6 @@ class MyPage extends Component {
         title={'我的'}
         statusBar={statusBar}
         style={{ backgroundColor: THEME_COLOR }}
-        rightButton={this.getRightButton()}
-        leftButton={this.getLeftButton()}
       />;
     return (
       <View style={GlobalStyles.root_container}>

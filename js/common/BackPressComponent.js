@@ -1,4 +1,4 @@
-import React, { PropTypes } from "react";
+import React  from "react";
 import { BackHandler } from "react-native";
 
 /**
@@ -11,14 +11,18 @@ export default class BackPressComponent {
     }
 
     componentDidMount() {
+        console.log('componentDidMount');
         if (this.props.backPress) BackHandler.addEventListener('hardwareBackPress', this._hardwareBackPress);
     }
 
     componentWillUnmount() {
+        console.log('componentWillUnmount');
+        
         if (this.props.backPress) BackHandler.removeEventListener('hardwareBackPress', this._hardwareBackPress);
     }
 
     onHardwareBackPress(e) {
+        console.log('onHardwareBackPress');
         return this.props.backPress(e);
     }
 }
