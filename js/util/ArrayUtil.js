@@ -1,4 +1,5 @@
 export default class ArrayUtil {
+
     /**
      * 更新数组,若item已存在则将其从数组中删除,若不存在则将其添加到数组
      * **/
@@ -41,5 +42,17 @@ export default class ArrayUtil {
             if (arr1[i] !== arr2[i]) return false;
         }
         return true;
+    }
+    /**
+     * clone 数组
+     * @return Array 新的数组
+     * */
+    static clone(from) {
+        if (!from) return [];
+        let newArray = [];
+        for (let i = 0, l = from.length; i < l; i++) {
+            newArray[i] = from[i];
+        }
+        return newArray;
     }
 }
