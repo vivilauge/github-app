@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, ActivityIndicator, TouchableOpacity, Text, View, FlatList, RefreshControl, DeviceInfo, DeviceEventEmitter } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../action/index'
-import { createMaterialTopTabNavigator, createAppContainer} from "react-navigation";
+import { createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 import NavigationUtil from '../navigator/NavigationUtil'
 import TrendingItem from '../common/TrendingItem'
 import Toast from 'react-native-easy-toast'
@@ -21,7 +21,6 @@ import { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 import ArrayUtil from "../util/ArrayUtil";
 
 const favoriteDao = new FavoriteDao(FLAG_STORAGE.flag_trending);
-const THEME_COLOR = '#678';
 type Props = {};
 
 class TrendingPage extends Component<Props> {
@@ -38,12 +37,13 @@ class TrendingPage extends Component<Props> {
 
   _genTabs() {
     const tabs = {};
-    const { keys } = this.props;
+    const { keys, theme } = this.props;
     this.preKeys = keys;
     keys.forEach((item, index) => {
       if (item.checked) {
         tabs[`tab${index}`] = {
-          screen: props => <TrendingTabPage {...props} timeSpan={this.state.timeSpan} tabLabel={item.name} />,
+          screen: props => <TrendingTabPage {...props} timeSpan={this.state.timeSpan} tabLabel={item.name}
+            theme={theme} />,//初始化Component时携带默认参数 @https://github.com/react-navigation/react-navigation/issues/2392
           navigationOptions: {
             title: item.name
           }
@@ -90,7 +90,10 @@ class TrendingPage extends Component<Props> {
   }
 
   _tabNav() {
-    if (!this.tabNav || !ArrayUtil.isEqual(this.preKeys, this.props.keys)) {//优化效率：根据需要选择是否重新创建建TabNavigator，通常tab改变后才重新创建
+    const { theme } = this.props;
+    //注意：主题发生变化需要重新渲染top tab
+    if (theme !== this.theme || !this.tabNav || !ArrayUtil.isEqual(this.preKeys, this.props.keys)) {//优化效率：根据需要选择是否重新创建建TabNavigator，通常tab改变后才重新创建
+      this.theme = theme;
       this.tabNav = createAppContainer(createMaterialTopTabNavigator(
         this._genTabs(), {
           tabBarOptions: {
@@ -98,12 +101,13 @@ class TrendingPage extends Component<Props> {
             upperCaseLabel: false,//是否使标签大写，默认为true
             scrollEnabled: true,//是否支持 选项卡滚动，默认false
             style: {
-              backgroundColor: '#678',//TabBar 的背景颜色
+              backgroundColor: theme.themeColor,//TabBar 的背景颜色
               height: 30//fix 开启scrollEnabled后再Android上初次加载时闪烁问题
             },
             indicatorStyle: styles.indicatorStyle,//标签指示器的样式
             labelStyle: styles.labelStyle,//文字的样式
-          }, lazy: true
+          },
+          lazy: true
         }
       ));
     }
@@ -111,15 +115,15 @@ class TrendingPage extends Component<Props> {
   }
 
   render() {
-    const { keys } = this.props;
+    const { keys, theme } = this.props;
     let statusBar = {
-      backgroundColor: THEME_COLOR,
+      backgroundColor: theme.themeColor,
       barStyle: 'light-content',
     };
     let navigationBar = <NavigationBar
       titleView={this.renderTitleView()}
       statusBar={statusBar}
-      style={{ backgroundColor: THEME_COLOR }}
+      style={theme.styles.navBar}
     />;
     const TabNavigator = keys.length ? this._tabNav() : null;
     return <View style={{ flex: 1, marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0 }}>
@@ -132,6 +136,7 @@ class TrendingPage extends Component<Props> {
 
 const mapTrendingStateToProps = state => ({
   keys: state.language.languages,
+  theme: state.theme.theme,
 });
 const mapTrendingDispatchToProps = dispatch => ({
   onLoadLanguage: (flag) => dispatch(actions.onLoadLanguage(flag))
@@ -215,10 +220,13 @@ class TrendingTab extends Component<Props> {
 
   renderItem(data) {
     const item = data.item;
+    const { theme } = this.props;
     return <TrendingItem
       projectModel={item}
+      theme={theme}
       onSelect={(callback) => {
         NavigationUtil.goPage({
+          theme,
           projectModel: item,
           flag: FLAG_STORAGE.flag_trending,
           callback,
@@ -240,6 +248,7 @@ class TrendingTab extends Component<Props> {
 
   render() {
     let store = this._store();
+    const { theme } = this.props;
     return (
       <View style={styles.container}>
         <FlatList
@@ -249,11 +258,11 @@ class TrendingTab extends Component<Props> {
           refreshControl={
             <RefreshControl
               title={'Loading'}
-              titleColor={THEME_COLOR}
-              colors={[THEME_COLOR]}
+              titleColor={theme.themeColor}
+              colors={[theme.themeColor]}
               refreshing={store.isLoading}
               onRefresh={() => this.loadData()}
-              tintColor={THEME_COLOR}
+              tintColor={theme.themeColor}
             />
           }
           ListFooterComponent={() => this.genIndicator()}

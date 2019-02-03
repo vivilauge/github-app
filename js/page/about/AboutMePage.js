@@ -7,11 +7,11 @@ import config from '../../res/data/config'
 import GlobalStyles from "../../res/styles/GlobalStyles";
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Toast from 'react-native-easy-toast'
-import BackPressComponent from '../../common/BackPressComponent'
 
 const THEME_COLOR = '#678';
+type Props = {};
 
-export default class AboutMePage extends Component {
+export default class AboutMePage extends Component<Props> {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;
@@ -21,7 +21,6 @@ export default class AboutMePage extends Component {
             flagAbout: FLAG_ABOUT.flag_about_me,
         }, data => this.setState({ ...data })
         );
-        
         this.state = {
             data: config,
             showTutorial: true,
@@ -29,30 +28,17 @@ export default class AboutMePage extends Component {
             showQQ: false,
             showContact: false
         }
-
-        this.backPress = new BackPressComponent({ backPress: () => this.onBackPress() });
-    }
-
-    onBackPress() {
-        NavigationUtil.goBack(this.props.navigation);
-        return true;
-    }
-
-    componentDidMount() {
-        this.backPress.componentDidMount();
-    }
-
-    componentWillUnmount() {
-        this.backPress.componentWillUnmount();
     }
 
     onClick(tab) {
         if (!tab) return;
+        const { theme } = this.params;
         if (tab.url) {
             NavigationUtil.goPage({
+                theme,
                 title: tab.title,
                 url: tab.url
-            }, 'WebViewPage')
+            }, 'WebViewPage');
             return;
         }
         if (tab.account && tab.account.indexOf('@') > -1) {
@@ -77,11 +63,12 @@ export default class AboutMePage extends Component {
     }
 
     _item(data, isShow, key) {
+        const { theme } = this.params;
         return ViewUtil.getSettingItem(() => {
             this.setState({
                 [key]: !this.state[key]
             });
-        }, data.name, THEME_COLOR, Ionicons, data.icon, isShow ? 'ios-arrow-up' : 'ios-arrow-down')
+        }, data.name, theme.themeColor, Ionicons, data.icon, isShow ? 'ios-arrow-up' : 'ios-arrow-down')
     }
 
     /**
@@ -91,12 +78,13 @@ export default class AboutMePage extends Component {
      */
     renderItems(dic, isShowAccount) {
         if (!dic) return null;
+        const { theme } = this.params;
         let views = [];
         for (let i in dic) {
             let title = isShowAccount ? dic[i].title + ':' + dic[i].account : dic[i].title;
             views.push(
                 <View key={i}>
-                    {ViewUtil.getSettingItem(() => this.onClick(dic[i]), title, THEME_COLOR)}
+                    {ViewUtil.getSettingItem(() => this.onClick(dic[i]), title, theme.themeColor)}
                     <View style={GlobalStyles.line} />
                 </View>
             )
