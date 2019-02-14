@@ -6,12 +6,13 @@ import WebViewPage from '../page/WebViewPage';
 import AboutPage from '../page/about/AboutPage';
 import AboutMePage from '../page/about/AboutMePage';
 import CustomKeyPage from '../page/CustomKeyPage';
-import CustomTheme from '../page/CustomTheme';
+import SearchPage from '../page/SearchPage';
 import SortKeyPage from '../page/SortKeyPage';
 import { connect } from 'react-redux';
 import { createReactNavigationReduxMiddleware, reduxifyNavigator } from 'react-navigation-redux-helpers';
 
 export const rootCom = 'Init'; // route init
+console.log(2);
 
 const InitNavigator = createStackNavigator({
     WelcomePage: {
@@ -60,14 +61,14 @@ const MainNavigator = createStackNavigator({
             header: null
         }
     },
-    CustomTheme: {
-        screen: CustomTheme,
+    SortKeyPage: {
+        screen: SortKeyPage,
         navigationOptions: {
             header: null
         }
     },
-    SortKeyPage: {
-        screen: SortKeyPage,
+    SearchPage: {
+        screen: SearchPage,
         navigationOptions: {
             header: null
         }

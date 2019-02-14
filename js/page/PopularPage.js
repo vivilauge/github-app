@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, ActivityIndicator, Text, View, FlatList, RefreshControl } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, View, FlatList, RefreshControl, TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../action/index'
-import { createMaterialTopTabNavigator, createAppContainer} from "react-navigation";
+import { createMaterialTopTabNavigator, createAppContainer } from "react-navigation";
 import NavigationUtil from '../navigator/NavigationUtil'
 import PopularItem from '../common/PopularItem'
 import Toast from 'react-native-easy-toast'
@@ -13,6 +13,7 @@ import { FLAG_STORAGE } from "../expand/dao/DataStore";
 import FavoriteUtil from "../util/FavoriteUtil";
 import EventBus from "react-native-event-bus";
 import EventTypes from "../util/EventTypes";
+import Ionicons from 'react-native-vector-icons/Ionicons';
 import { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 
 const URL = 'https://api.github.com/search/repositories?q=';
@@ -43,6 +44,26 @@ class PopularPage extends Component<Props> {
     return tabs;
   }
 
+  renderRightButton() {
+    const { theme } = this.props;
+    return <TouchableOpacity
+      onPress={() => {
+        NavigationUtil.goPage({ theme }, 'SearchPage')
+      }}
+    >
+      <View style={{ padding: 5, marginRight: 8 }}>
+        <Ionicons
+          name={'ios-search'}
+          size={24}
+          style={{
+            marginRight: 8,
+            alignSelf: 'center',
+            color: 'white',
+          }} />
+      </View>
+    </TouchableOpacity>
+  }
+
   render() {
     const { keys, theme } = this.props;
     let statusBar = {
@@ -53,6 +74,7 @@ class PopularPage extends Component<Props> {
       title={'最热'}
       statusBar={statusBar}
       style={theme.styles.navBar}
+      rightButton={this.renderRightButton()}
     />;
     const TabNavigator = keys.length ? createAppContainer(createMaterialTopTabNavigator(
       this._genTabs(), {
