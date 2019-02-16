@@ -1,21 +1,24 @@
-import React, { Component } from 'react';
-import { DeviceInfo, StyleSheet, View, WebView } from 'react-native';
+import React, {Component} from 'react';
+import {DeviceInfo, StyleSheet, View, WebView} from 'react-native';
 import NavigationBar from '../common/NavigationBar'
 import ViewUtil from "../util/ViewUtil";
 import NavigationUtil from "../navigator/NavigationUtil";
 import BackPressComponent from "../common/BackPressComponent";
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
+import GlobalStyles from "../res/styles/GlobalStyles";
+type Props = {};
 
-export default class WebViewPage extends Component {
+export default class WebViewPage extends Component<Props> {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;
-        const { title, url } = this.params;
+        const {title, url} = this.params;
         this.state = {
             title: title,
             url: url,
             canGoBack: false,
         };
-        this.backPress = new BackPressComponent({ backPress: () => this.onBackPress() });
+        this.backPress = new BackPressComponent({backPress: () => this.onBackPress()});
     }
 
     componentDidMount() {
@@ -47,23 +50,26 @@ export default class WebViewPage extends Component {
     }
 
     render() {
-        const { theme } = this.params;
+        const {theme} = this.params;
         let navigationBar = <NavigationBar
             title={this.state.title}
-            style={theme.styles.navBar }
+            style={theme.styles.navBar}
             leftButton={ViewUtil.getLeftBackButton(() => this.onBackPress())}
         />;
 
         return (
-            <View style={styles.container}>
+            <SafeAreaViewPlus
+                style={GlobalStyles.root_container}
+                topColor={theme.themeColor}
+            >
                 {navigationBar}
                 <WebView
                     ref={webView => this.webView = webView}
                     startInLoadingState={true}
                     onNavigationStateChange={e => this.onNavigationStateChange(e)}
-                    source={{ uri: this.state.url }}
+                    source={{uri: this.state.url}}
                 />
-            </View>
+            </SafeAreaViewPlus>
         );
     }
 }

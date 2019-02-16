@@ -126,7 +126,7 @@ class TrendingPage extends Component<Props> {
       style={theme.styles.navBar}
     />;
     const TabNavigator = keys.length ? this._tabNav() : null;
-    return <View style={{ flex: 1, marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0 }}>
+    return <View style={styles.container}>
       {navigationBar}
       {TabNavigator && <TabNavigator />}
       {this.renderTrendingDialog()}

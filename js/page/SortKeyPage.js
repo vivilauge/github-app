@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
-import { Alert, TouchableHighlight, StyleSheet, View, Text } from 'react-native';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {Alert, TouchableHighlight, StyleSheet, View, Text} from 'react-native';
+import {connect} from 'react-redux';
 import actions from '../action/index'
 import NavigationUtil from '../navigator/NavigationUtil'
 import NavigationBar from '../common/NavigationBar';
-import LanguageDao, { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
+import LanguageDao, {FLAG_LANGUAGE} from "../expand/dao/LanguageDao";
 import BackPressComponent from "../common/BackPressComponent";
 import ViewUtil from "../util/ViewUtil";
-import CheckBox from 'react-native-check-box'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ArrayUtil from "../util/ArrayUtil";
 import SortableListView from 'react-native-sortable-listview'
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
+import GlobalStyles from "../res/styles/GlobalStyles";
 
-const THEME_COLOR = '#678';
 type Props = {};
 
 class SortKeyPage extends Component<Props> {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;
-        this.backPress = new BackPressComponent({ backPress: (e) => this.onBackPress(e) });
+        this.backPress = new BackPressComponent({backPress: (e) => this.onBackPress(e)});
         this.languageDao = new LanguageDao(this.params.flag);
         this.state = {
             checkedArray: SortKeyPage._keys(this.props),
@@ -41,7 +40,7 @@ class SortKeyPage extends Component<Props> {
         this.backPress.componentDidMount();
         //如果props中标签为空则从本地存储中获取标签
         if (SortKeyPage._keys(this.props).length === 0) {
-            let { onLoadLanguage } = this.props;
+            let {onLoadLanguage} = this.props;
             onLoadLanguage(this.params.flag);
         }
     }
@@ -74,7 +73,7 @@ class SortKeyPage extends Component<Props> {
     }
 
     static _flag(props) {
-        const { flag } = props.navigation.state.params;
+        const {flag} = props.navigation.state.params;
         return flag === FLAG_LANGUAGE.flag_key ? "keys" : "languages";
     }
 
@@ -97,7 +96,7 @@ class SortKeyPage extends Component<Props> {
         this.languageDao.save(this.getSortResult());
 
         //重新加载排序后的标签，以便其他页面能够及时更新
-        const { onLoadLanguage } = this.props;
+        const {onLoadLanguage} = this.props;
         //更新store
         onLoadLanguage(this.params.flag);
         NavigationUtil.goBack(this.props.navigation);
@@ -134,38 +133,18 @@ class SortKeyPage extends Component<Props> {
                             NavigationUtil.goBack(this.props.navigation)
                         }
                     }, {
-                        text: '是', onPress: () => {
-                            this.onSave(true);
-                        }
+                    text: '是', onPress: () => {
+                        this.onSave(true);
                     }
+                }
                 ])
         } else {
             NavigationUtil.goBack(this.props.navigation)
         }
     }
 
-    _checkedImage(checked) {
-        return <Ionicons
-            name={checked ? 'ios-checkbox' : 'md-square-outline'}
-            size={20}
-            style={{
-                color: THEME_COLOR,
-            }} />
-    }
-
-    renderCheckBox(data, index) {
-        return <CheckBox
-            style={{ flex: 1, padding: 10 }}
-            onClick={() => this.onClick(data, index)}
-            isChecked={data.checked}
-            leftText={data.name}
-            checkedImage={this._checkedImage(true)}
-            unCheckedImage={this._checkedImage(false)}
-        />
-    }
-
     render() {
-        const { theme } = this.params;
+        const {theme} = this.params;
         let title = this.params.flag === FLAG_LANGUAGE.flag_language ? '语言排序' : '标签排序';
         let navigationBar = <NavigationBar
             title={title}
@@ -173,7 +152,10 @@ class SortKeyPage extends Component<Props> {
             style={theme.styles.navBar}
             rightButton={ViewUtil.getRightButton('保存', () => this.onSave())}
         />;
-        return <View style={styles.container}>
+        return <SafeAreaViewPlus
+            style={GlobalStyles.root_container}
+            topColor={theme.themeColor}
+        >
             {navigationBar}
             <SortableListView
                 data={this.state.checkedArray}
@@ -182,24 +164,24 @@ class SortKeyPage extends Component<Props> {
                     this.state.checkedArray.splice(e.to, 0, this.state.checkedArray.splice(e.from, 1)[0])
                     this.forceUpdate()
                 }}
-                renderRow={row => <SortCell data={row} {...this.params} />}
+                renderRow={row => <SortCell data={row} {...this.params}/>}
             />
-        </View>
+        </SafeAreaViewPlus>
     }
 }
 
 class SortCell extends Component {
     render() {
-        const { theme } = this.props;
+        const {theme} = this.props;
         return <TouchableHighlight
             underlayColor={'#eee'}
             style={this.props.data.checked ? styles.item : styles.hidden}
             {...this.props.sortHandlers}>
-            <View style={{ marginLeft: 10, flexDirection: 'row' }}>
+            <View style={{marginLeft: 10, flexDirection: 'row'}}>
                 <MaterialCommunityIcons
                     name={'sort'}
                     size={16}
-                    style={{ marginRight: 10, color: theme.themeColor }} />
+                    style={{marginRight: 10, color: theme.themeColor}}/>
                 <Text>{this.props.data.name}</Text>
             </View>
         </TouchableHighlight>

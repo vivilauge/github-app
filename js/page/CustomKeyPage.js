@@ -7,8 +7,9 @@ import NavigationBar from '../common/NavigationBar';
 import LanguageDao, { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 import BackPressComponent from "../common/BackPressComponent";
 import ViewUtil from "../util/ViewUtil";
-import CheckBox from 'react-native-check-box'
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import CheckBox from 'react-native-check-box';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 import ArrayUtil from "../util/ArrayUtil";
 
 type Props = {};
@@ -178,12 +179,12 @@ class CustomKeyPage extends Component<Props> {
             style={theme.styles.navBar}
             rightButton={ViewUtil.getRightButton(rightButtonTitle, () => this.onSave())}
         />;
-        return <View style={styles.container}>
+        return <SafeAreaViewPlus style={styles.container} topColor={theme.themeColor}>
             {navigationBar}
             <ScrollView>
                 {this.renderView()}
             </ScrollView>
-        </View>
+        </SafeAreaViewPlus>
     }
 }
 

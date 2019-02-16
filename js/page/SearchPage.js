@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Platform, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, FlatList, Platform, RefreshControl, StyleSheet, Text, TextInput, TouchableOpacity, View, DeviceInfo } from 'react-native';
 import { connect } from 'react-redux';
 import actions from '../action/index'
 import NavigationUtil from '../navigator/NavigationUtil'
@@ -10,7 +10,8 @@ import { FLAG_STORAGE } from "../expand/dao/DataStore";
 import FavoriteUtil from "../util/FavoriteUtil";
 import LanguageDao, { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 import BackPressComponent from "../common/BackPressComponent";
-import GlobalStyles from '../res/styles/GlobalStyles'
+import GlobalStyles from '../res/styles/GlobalStyles';
+import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 import ViewUtil from "../util/ViewUtil";
 import Utils from "../util/Utils";
 
@@ -157,7 +158,7 @@ class SearchPage extends Component<Props> {
         const { isLoading, projectModels, showBottomButton, hideLoadingMore } = this.props.search;
         const { theme } = this.params;
         let statusBar = null;
-        if (Platform.OS === 'ios') {
+        if (Platform.OS === 'ios' && !DeviceInfo.isIPhoneX_deprecated) {
             statusBar = <View style={[styles.statusBar, { backgroundColor: theme.themeColor }]} />
         }
         let listView = !isLoading ? <FlatList
@@ -217,13 +218,13 @@ class SearchPage extends Component<Props> {
             {listView}
         </View>;
         return (
-            <View style={styles.container}>
+            <SafeAreaViewPlus style={GlobalStyles.root_container} topColor={theme.themeColor}>
                 {statusBar}
                 {this.renderNavBar()}
                 {resultView}
                 {bottomButton}
                 <Toast ref={toast => this.toast = toast} />
-            </View>
+            </SafeAreaViewPlus>
         );
     }
 }
