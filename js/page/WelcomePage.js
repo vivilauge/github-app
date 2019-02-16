@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import NavigationUtil from '../navigator/NavigationUtil';
+import SplashScreen from 'react-native-splash-screen';
 
 export default class App extends Component {
+  
   componentDidMount() {
     this.timer = setTimeout(() => {
+      SplashScreen.hide();
       NavigationUtil.resetToHomePage({
         navigation: this.props.navigation
       })
-    }, 20);
+    }, 2000);
   }
 
   componentWillUnmount() {
@@ -16,24 +18,6 @@ export default class App extends Component {
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>WelcomePage1</Text>
-      </View>
-    );
+    return null
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  }
-});
