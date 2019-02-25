@@ -7,7 +7,6 @@ import NavigationUtil from '../navigator/NavigationUtil'
 import PopularItem from '../common/PopularItem'
 import Toast from 'react-native-easy-toast'
 import NavigationBar from '../common/NavigationBar';
-import { DeviceInfo } from 'react-native';
 import FavoriteDao from "../expand/dao/FavoriteDao";
 import { FLAG_STORAGE } from "../expand/dao/DataStore";
 import FavoriteUtil from "../util/FavoriteUtil";
@@ -19,9 +18,8 @@ import { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
 const favoriteDao = new FavoriteDao(FLAG_STORAGE.flag_popular);
-type Props = {};
 
-class PopularPage extends Component<Props> {
+class PopularPage extends Component {
   constructor(props) {
     super(props);
     const { onLoadLanguage } = this.props;
@@ -71,7 +69,7 @@ class PopularPage extends Component<Props> {
       barStyle: 'light-content',
     };
     let navigationBar = <NavigationBar
-      title={'最热'}
+      title={'最热11111'}
       statusBar={statusBar}
       style={theme.styles.navBar}
       rightButton={this.renderRightButton()}

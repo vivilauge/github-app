@@ -12,9 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import SafeAreaViewPlus from "../common/SafeAreaViewPlus";
 import ArrayUtil from "../util/ArrayUtil";
 
-type Props = {};
-
-class CustomKeyPage extends Component<Props> {
+class CustomKeyPage extends Component {
     constructor(props) {
         super(props);
         this.params = this.props.navigation.state.params;

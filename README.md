@@ -7,6 +7,7 @@ npm install 之后需要依赖的原生插件
 1. react-native link react-native-vector-icons
 2. react-native link react-native-gesture-handler
 3. react-native link react-native-splash-screen
+4. react-native link react-native-code-push
 
 #### Navigation
 
@@ -72,3 +73,6 @@ react-native-gesture-handler 配置(默认已配置，若出错,一一排查)
 #### 全面屏适配与兼容问题
 1. 12-1 React Native 适配iOS、Android全面屏
 2. 12-2 启动白屏问题解决与启动屏开发
+
+####  打包发布与CodePush更新
+1. CodePush集成与配置

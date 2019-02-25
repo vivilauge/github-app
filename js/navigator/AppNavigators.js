@@ -7,12 +7,12 @@ import AboutPage from '../page/about/AboutPage';
 import AboutMePage from '../page/about/AboutMePage';
 import CustomKeyPage from '../page/CustomKeyPage';
 import SearchPage from '../page/SearchPage';
+import CodePushPage  from '../page/CodePushPage';
 import SortKeyPage from '../page/SortKeyPage';
 import { connect } from 'react-redux';
 import { createReactNavigationReduxMiddleware, reduxifyNavigator } from 'react-navigation-redux-helpers';
 
 export const rootCom = 'Init'; // route init
-console.log(2);
 
 const InitNavigator = createStackNavigator({
     WelcomePage: {
@@ -69,6 +69,12 @@ const MainNavigator = createStackNavigator({
     },
     SearchPage: {
         screen: SearchPage,
+        navigationOptions: {
+            header: null
+        }
+    },
+    CodePushPage: {
+        screen: CodePushPage,
         navigationOptions: {
             header: null
         }

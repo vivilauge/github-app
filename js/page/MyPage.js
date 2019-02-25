@@ -10,9 +10,7 @@ import ViewUtil from "../util/ViewUtil";
 import { FLAG_LANGUAGE } from "../expand/dao/LanguageDao";
 import actions from "../action";
 
-type Props = {};
-
-class MyPage extends Component<Props> {
+class MyPage extends Component {
   onClick(menu) {
     console.log(menu);
     const { theme } = this.props;
@@ -33,6 +31,9 @@ class MyPage extends Component<Props> {
       case MORE_MENU.Sort_Key:
         RouteName = 'SortKeyPage';
         params.flag = FLAG_LANGUAGE.flag_key;
+        break;
+      case MORE_MENU.CodePush:
+        RouteName = 'CodePushPage';
         break;
       case MORE_MENU.Sort_Language:
         RouteName = 'SortKeyPage';
@@ -131,6 +132,9 @@ class MyPage extends Component<Props> {
           <View style={GlobalStyles.line} />
           {/*反馈*/}
           {this.getItem(MORE_MENU.Feedback)}
+          {/** 在线更新codepush*/}
+          <View style={GlobalStyles.line} />
+          {this.getItem(MORE_MENU.CodePush)}
         </ScrollView>
       </View>
     );
